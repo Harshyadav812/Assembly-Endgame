@@ -11,8 +11,6 @@ body {
   color: #d9d9d9;
   padding: 5px 20px;
   height: 100vh;
-  display: flex;
-  justify-content: center;
 }
 
 main {
@@ -46,12 +44,13 @@ main {
   font-weight: 500;
   font-size: 1.2rem;
   color: rgba(249, 244, 218, 1);
-  /* background-color: rgba(16, 169, 91, 1); */
-  width: 450px;
+  width: 100%;
+  max-width: 450px;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 70px;
 }
 
@@ -63,6 +62,11 @@ main {
   background-color: rgba(16, 169, 91, 1);
 }
 
+.game-status-container.farewell {
+  background-color: #7a5ea7;
+  border: 1px dashed #323232;
+}
+
 .game-status-container .status {
   font-size: 1.3rem;
   margin-bottom: 4px;
@@ -70,6 +74,11 @@ main {
 
 .game-status-container .description {
   font-size: 1rem;
+}
+
+.game-status-container .farewell-msg {
+  font-style: italic;
+  font-weight: 400;
 }
 
 .language-ctn {
@@ -115,6 +124,14 @@ span.lang-chip.lost::before {
   gap: 0.2rem;
 }
 
+.letter.missed-letter {
+  color: #ec5d49;
+}
+
+.letter.correct-letter {
+  color: #10a95b;
+}
+
 .letter {
   height: 40px;
   width: 40px;
@@ -143,6 +160,11 @@ span.lang-chip.lost::before {
   border-radius: 6px;
   border: 1px solid rgba(215, 215, 215, 1);
   cursor: pointer;
+}
+
+.key:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 button.new-game {
