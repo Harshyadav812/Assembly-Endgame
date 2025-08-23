@@ -1,23 +1,29 @@
 import { useState } from 'react'
 import clsx from 'clsx'
+import { useWindowSize } from 'react-use'
 import './App.css'
 import Header from './components/Header'
 import GameStatus from './components/GameStatus'
 import { languages } from './language'
 import { getRandomWord, getFarewellText } from './utils'
+import Confetti from "react-confetti"
 
 function App() {
 
   const [currentWord, setCurrentWord] = useState(() => getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
+  // const [reaminingGuessCount, setRemainingGuessCount] = useState(8)
+  const { width, height } = useWindowSize()
 
   const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
   const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
 
   const alphabets = "abcdefghijklmnopqrstuvwxyz"
 
-  let wrongGuessCount = guessedLetters.filter(letter =>
+  const wrongGuessCount = guessedLetters.filter(letter =>
     !currentWord.includes(letter)).length
+
+  const remainingGuessCount = 8 - wrongGuessCount
 
 
   const isGameWon = currentWord.split('').every(letter => guessedLetters.includes(letter))
@@ -27,6 +33,11 @@ function App() {
 
   function handleClick(letter) {
     setGuessedLetters(prevLetterArray => prevLetterArray.includes(letter) ? prevLetterArray : [...prevLetterArray, letter])
+
+    // if (!currentWord.includes(letter)) {
+    //   setRemainingGuessCount(7 - wrongGuessCount)
+    // }
+
   }
 
   const keys = alphabets.split("").map((letter, idx) => {
@@ -104,11 +115,23 @@ function App() {
     setGuessedLetters([])
   }
 
-  console.log(currentWord)
+  const remainingGuessClassName = clsx('remaining-guess', {
+    'remaining-guess--good': remainingGuessCount >= 6,
+    'remaining-guess--warn': remainingGuessCount >= 4 && remainingGuessCount < 6,
+    'remaining-guess--danger': remainingGuessCount >= 0 && remainingGuessCount < 4,
+  })
 
 
   return (
     <main>
+      {isGameWon &&
+        < Confetti
+          width={width}
+          height={height}
+          recycle={false}
+          numberOfPieces={1000}
+        />
+      }
       <Header />
 
       <GameStatus
@@ -122,7 +145,9 @@ function App() {
       <div className="letter-ctn">{isGameLost ? revealWord : letterElements}</div>
       <div className='key-ctn'>{keys}</div>
 
-      {isGameOver && <button onClick={resetGame} className="new-game">New Game</button>}
+      {isGameOver ? <button onClick={resetGame} className="new-game">New Game</button> : (
+        <span className={remainingGuessClassName}>Remaining Guesses: <strong>{remainingGuessCount}</strong></span>
+      )}
     </main>
   )
 }

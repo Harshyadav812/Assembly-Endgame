@@ -148,6 +148,7 @@ span.lang-chip.lost::before {
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .key {
@@ -167,7 +168,7 @@ span.lang-chip.lost::before {
   opacity: 0.5;
 }
 
-button.new-game {
+.new-game {
   background-color: #11b5e5;
   border: 1px solid #d7d7d7;
   border-radius: 4px;
@@ -179,4 +180,31 @@ button.new-game {
   cursor: pointer;
   font-weight: 600;
   font-size: 1rem;
+}
+
+.remaining-guess {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+/* >= 6 */
+.remaining-guess--good {
+  background: #10a95b;
+  color: #fff;
+}
+
+/* >= 4 and < 6 */
+.remaining-guess--warn {
+  background: #fcba29;
+  color: #1a1a1a;
+}
+
+/* >= 0 and < 4 */
+.remaining-guess--danger {
+  background: #ec5d49;
+  color: #fff;
 }
