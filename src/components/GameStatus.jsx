@@ -1,14 +1,15 @@
 import clsx from 'clsx'
 
-export default function GameStatus({ isGameOver, isGameWon, isGameLost }) {
+export default function GameStatus({ isGameOver, isGameWon, isGameLost, displayFarewellMsg, isLastGuessIncorrect }) {
 
   const gameStatusClass = clsx("game-status-container", {
     lost: isGameLost,
-    won: isGameWon
+    won: isGameWon,
+    farewell: !isGameOver && isLastGuessIncorrect
   })
 
   return (
-    <section className={gameStatusClass}>
+    <section aria-live="polite" role="status" className={gameStatusClass}>
 
       {
         isGameOver ? (
@@ -26,7 +27,7 @@ export default function GameStatus({ isGameOver, isGameWon, isGameLost }) {
 
         ) :
           (
-            null
+            isLastGuessIncorrect && displayFarewellMsg()
           )
       }
 
