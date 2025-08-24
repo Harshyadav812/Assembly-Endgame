@@ -12,7 +12,6 @@ function App() {
 
   const [currentWord, setCurrentWord] = useState(() => getRandomWord())
   const [guessedLetters, setGuessedLetters] = useState([])
-  // const [reaminingGuessCount, setRemainingGuessCount] = useState(8)
   const { width, height } = useWindowSize()
 
   const lastGuessedLetter = guessedLetters[guessedLetters.length - 1]
@@ -33,10 +32,6 @@ function App() {
 
   function handleClick(letter) {
     setGuessedLetters(prevLetterArray => prevLetterArray.includes(letter) ? prevLetterArray : [...prevLetterArray, letter])
-
-    // if (!currentWord.includes(letter)) {
-    //   setRemainingGuessCount(7 - wrongGuessCount)
-    // }
 
   }
 
