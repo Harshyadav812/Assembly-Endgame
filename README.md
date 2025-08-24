@@ -1,4 +1,4 @@
-# Assembly: Endgame
+# Assembly-Endgame
 
 A fast, accessible word-guessing game built with React and Vite. Guess the hidden word by selecting letters. You have 8 wrong guesses before the programming world falls to Assembly.
 
